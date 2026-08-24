@@ -7,7 +7,7 @@ class ShowFPS : public IPlugin
 {
 	public:
 		void Start();
-		void Stop();
+		void Stop(bool restore = true);
 
 	private:
 		DWORD m_patchAddr = 0;       // 显示标志字节地址（Game.dll 基址 + RVA）

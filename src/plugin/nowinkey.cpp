@@ -36,8 +36,9 @@ void NoWinKey::Start()
 	m_thread = CreateThread(NULL, 0, HookThread, NULL, 0, NULL);
 }
 
-void NoWinKey::Stop()
+void NoWinKey::Stop(bool restore)
 {
+	(void)restore;
 	g_running = false;
 	if (m_thread)
 	{

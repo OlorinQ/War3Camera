@@ -9,7 +9,7 @@ public:
 	~CameraPlugin();
 
 	void Start() override;
-	void Stop() override;
+	void Stop(bool restore = true) override;
 
 private:
 	static void CameraDistanceThread();
@@ -17,6 +17,7 @@ private:
 	static void ResetCameraDistance();
 	static float* FindCameraDistanceAddress();
 	static bool IsDistanceSignature(DWORD* addr, DWORD index);
+	static bool IsDistanceTableIntact(float* addr, DWORD index);
 
 	static bool s_running;
 	static HANDLE s_threadHandle;

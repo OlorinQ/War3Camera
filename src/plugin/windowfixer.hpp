@@ -8,7 +8,7 @@ class WindowFixer : public IPlugin
 {
 	public:
 		virtual void Start();
-		virtual void Stop();
+		virtual void Stop(bool restore = true);
 
 	private:
 		static DWORD __stdcall Listen(LPVOID lpThreadParameter);

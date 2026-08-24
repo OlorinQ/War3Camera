@@ -24,7 +24,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		case DLL_PROCESS_DETACH:
 			if (g_helper)
 			{
-				g_helper->UnloadPlugins();
+				// lpReserved != NULL 表示进程正在退出：只停线程、不还原内存补丁，
+				// 避免卸载时与游戏退出清理流程并发写内存引发崩溃
+				g_helper->UnloadPlugins(lpReserved != NULL);
 				delete g_helper;
 				g_helper = NULL;
 			}

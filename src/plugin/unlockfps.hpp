@@ -7,7 +7,7 @@ class UnlockFPS : public IPlugin
 {
 	public:
 		virtual void Start();
-		virtual void Stop();
+		virtual void Stop(bool restore = true);
 
 	private:
 		void ResetD3D();

@@ -16,7 +16,7 @@ class Helper
 		~Helper();
 
 		void LoadPlugins();
-		void UnloadPlugins();
+		void UnloadPlugins(bool exiting);
 
 	private:
 		std::vector<IPlugin*> m_plugins;

@@ -26,12 +26,13 @@ void ShowFPS::Start()
 	Game::PatchMemory(offset, bytes, 1);
 }
 
-void ShowFPS::Stop()
+void ShowFPS::Stop(bool restore)
 {
-	if (m_patched && m_patchAddr)
+	// 还原显示标志字节（进程退出时跳过，避免与游戏退出清理流程并发写内存）
+	if (restore && m_patched && m_patchAddr)
 	{
-		unsigned char restore[] = { m_patchByte };
-		Game::PatchMemory(m_patchAddr, restore, 1);
+		unsigned char original[] = { m_patchByte };
+		Game::PatchMemory(m_patchAddr, original, 1);
 		m_patched = false;
 		m_patchAddr = 0;
 	}

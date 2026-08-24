@@ -25,8 +25,9 @@ void CameraPlugin::Start()
 	s_threadHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)CameraDistanceThread, NULL, 0, NULL);
 }
 
-void CameraPlugin::Stop()
+void CameraPlugin::Stop(bool restore)
 {
+	(void)restore;
 	s_running = false;
 
 	if (s_threadHandle)
@@ -117,6 +118,25 @@ bool CameraPlugin::IsDistanceSignature(DWORD* addr, DWORD index)
 	return false;
 }
 
+// 运行时校验相机参数表是否仍完好：不检查视距值本身（用户可调整），只验证相邻骨架未被破坏。
+// 依据三种特征排列（不含 addr[0]）：
+//   特征 1：后跟 0.0f / 100.0f / 10000.0f（默认距离后随 0 / 步长 / 上限）
+//   特征 2：后跟 1600.0f / 1500.0f / 1400.0f（默认距离后随预设视距序列）
+//   特征 3：前有 1600.0f / 1500.0f / 1400.0f（默认距离前随预设视距序列）
+bool CameraPlugin::IsDistanceTableIntact(float* addr, DWORD index)
+{
+	if (addr[1] == 0.0f && addr[2] == 100.0f && addr[3] == 10000.0f)
+		return true;
+
+	if (addr[1] == 1600.0f && addr[2] == 1500.0f && addr[3] == 1400.0f)
+		return true;
+
+	if (index >= 3 && addr[-1] == 1600.0f && addr[-2] == 1500.0f && addr[-3] == 1400.0f)
+		return true;
+
+	return false;
+}
+
 // 相机距离监听线程：等待游戏启动后扫描地址，随后响应 +/-/* 键调整镜头距离
 void CameraPlugin::CameraDistanceThread()
 {
@@ -140,8 +160,10 @@ void CameraPlugin::CameraDistanceThread()
 			continue;
 		}
 
-		// 当前值异常（超出正常范围）时重新扫描，应对地址失效或数据被重置
-		if (!s_cameraDistanceAddress || *s_cameraDistanceAddress < 100.0f || *s_cameraDistanceAddress > 5000.0f)
+		// 地址有效性校验：指针无效、视距值异常（被清/写坏）或表骨架损坏（被整体覆盖）时重新扫描
+		if (!s_cameraDistanceAddress ||
+			*s_cameraDistanceAddress < 100.0f || *s_cameraDistanceAddress > 5000.0f ||
+			!IsDistanceTableIntact(s_cameraDistanceAddress, s_rvaOffset / sizeof(DWORD)))
 		{
 			s_cameraDistanceAddress = FindCameraDistanceAddress();
 			if (!s_cameraDistanceAddress)

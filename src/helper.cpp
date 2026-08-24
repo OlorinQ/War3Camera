@@ -55,8 +55,9 @@ void Helper::LoadPlugins()
 		p->Start();
 }
 
-void Helper::UnloadPlugins()
+void Helper::UnloadPlugins(bool exiting)
 {
+	// exiting=true（进程退出）：仅停线程不还原补丁，避免卸载时与游戏退出流程竞争写内存
 	for (auto* p : m_plugins)
-		p->Stop();
+		p->Stop(!exiting);
 }

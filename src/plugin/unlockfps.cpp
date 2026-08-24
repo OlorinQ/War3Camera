@@ -112,18 +112,18 @@ void UnlockFPS::WriteFPSLimit()
 		SetGameOptValue(GetGameOpt(), 0, 4, dm.dmDisplayFrequency);
 }
 
-void UnlockFPS::Stop()
+void UnlockFPS::Stop(bool restore)
 {
-	// 还原帧率限制标志补丁
-	if (m_patched && m_patchAddr)
+	// 还原帧率限制标志补丁（进程退出时跳过，避免与游戏退出清理流程并发写内存）
+	if (restore && m_patched && m_patchAddr)
 	{
-		unsigned char restore[] = { m_patchByte };
-		Game::PatchMemory(m_patchAddr, restore, 1);
+		unsigned char original[] = { m_patchByte };
+		Game::PatchMemory(m_patchAddr, original, 1);
 		m_patched = false;
 	}
 
-	// 撤销 D3D9 呈现参数钩子
-	if (m_hooked && org_GetD3d9Parameters)
+	// 撤销 D3D9 呈现参数钩子（进程退出时跳过）
+	if (restore && m_hooked && org_GetD3d9Parameters)
 	{
 		Game::DetachHook((void*&)org_GetD3d9Parameters, GetD3d9Parameters);
 		m_hooked = false;

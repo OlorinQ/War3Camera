@@ -105,8 +105,9 @@ void BorderlessWindow::Start()
 	m_thread = CreateThread(NULL, 0, MonitorThread, this, 0, NULL);
 }
 
-void BorderlessWindow::Stop()
+void BorderlessWindow::Stop(bool restore)
 {
+	(void)restore;
 	m_running = false;
 	if (m_thread)
 	{

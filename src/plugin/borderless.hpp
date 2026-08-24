@@ -8,7 +8,7 @@ class BorderlessWindow : public IPlugin
 {
 	public:
 		virtual void Start();
-		virtual void Stop();
+		virtual void Stop(bool restore = true);
 
 	private:
 		HANDLE m_thread = NULL;      // 监视线程句柄

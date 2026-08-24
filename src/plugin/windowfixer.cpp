@@ -49,8 +49,9 @@ void WindowFixer::Start()
 	m_thread = CreateThread(NULL, NULL, Listen, this, NULL, NULL);
 }
 
-void WindowFixer::Stop()
+void WindowFixer::Stop(bool restore)
 {
+	(void)restore;
 	m_running = false;
 	if (m_thread)
 	{

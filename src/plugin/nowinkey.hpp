@@ -8,7 +8,7 @@ class NoWinKey : public IPlugin
 {
 	public:
 		virtual void Start();
-		virtual void Stop();
+		virtual void Stop(bool restore = true);
 
 	private:
 		HANDLE m_thread = NULL;   // 钩子消息线程句柄
