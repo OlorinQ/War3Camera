@@ -25,7 +25,7 @@ private:
 	static DWORD s_rvaOffset;              // 镜头距离参数相对 Game.dll 基址的 RVA（缓存避免重扫）
 
 	// 镜头距离调节范围与步长
-	static constexpr float MIN_DISTANCE = 250.0f;
+	static constexpr float MIN_DISTANCE = 1050.0f;
 	static constexpr float MAX_DISTANCE = 3050.0f;
 	static constexpr float DEFAULT_DISTANCE = 1650.0f;
 	static constexpr float ADJUST_STEP = 100.0f;
