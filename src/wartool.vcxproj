@@ -146,11 +146,6 @@
 		<ClCompile Include="dllmain.cpp" />
 		<ClCompile Include="helper.cpp" />
 		<ClCompile Include="game\warcraft.cpp" />
-	//	<ClCompile Include="plugin\borderless.cpp" />
-	//	<ClCompile Include="plugin\nowinkey.cpp" />
-	//	<ClCompile Include="plugin\showfps.cpp" />
-	//	<ClCompile Include="plugin\unlockfps.cpp" />
-	//	<ClCompile Include="plugin\windowfixer.cpp" />
 		<ClCompile Include="plugin\camera.cpp" />
 	</ItemGroup>
 	<ItemGroup>
@@ -158,12 +153,7 @@
 		<ClInclude Include="game\warcraft.hpp" />
 		<ClInclude Include="game\version.hpp" />
 		<ClInclude Include="plugin\plugin.hpp" />
-	//	<ClInclude Include="plugin\borderless.hpp" />
-	//	<ClInclude Include="plugin\showfps.hpp" />
-	//	<ClInclude Include="plugin\unlockfps.hpp" />
-	//	<ClInclude Include="plugin\windowfixer.hpp" />
 		<ClInclude Include="plugin\camera.hpp" />
-	//	<ClInclude Include="plugin\nowinkey.hpp" />
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 	<ImportGroup Label="ExtensionTargets">
