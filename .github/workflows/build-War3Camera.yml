@@ -20,7 +20,7 @@ jobs:
 
       - name: Build with MSBuild (Release | Win32)
         # 根据项目 README，使用 v145 工具集，平台为 Win32
-        run: msbuild wartool.sln /p:Configuration=Release /p:Platform=Win32
+        run: msbuild War3Camera.sln /p:Configuration=Release /p:Platform=Win32
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
