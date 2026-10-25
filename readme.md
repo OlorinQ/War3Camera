@@ -11,9 +11,9 @@
 
 ## 使用方法
 
-> **仓库已附带编译好的成品 `output\wartool.m3d`**，无需自行编译，直接使用即可。
+> **仓库已附带编译好的成品 `output\War3Camera.m3d`**，无需自行编译，直接使用即可。
 
-1. 将 `output\wartool.m3d` 复制到魔兽争霸3 `...\Warcraft III\redist\miles` 目录下
+1. 将 `output\War3Camera.m3d` 复制到魔兽争霸3 `...\Warcraft III\redist\miles` 目录下
 2. 正常启动魔兽争霸3即可，**无需手动添加 `-window` 参数**，工具会自动加载并应用所有功能；不依赖任何外部 DLL
 
 ## 支持版本
@@ -32,16 +32,16 @@
 ### 编译步骤
 
 ```bash
-MSBuild wartool.sln /p:Configuration=Release /p:Platform=Win32
+MSBuild War3Camera.sln /p:Configuration=Release /p:Platform=Win32
 ```
 
-- 编译完成后成品 `wartool.m3d` 生成在根目录 `output\` 中
+- 编译完成后成品 `War3Camera.m3d` 生成在根目录 `output\` 中
 - 中间产物统一在根目录 `build\`（与 `output` 同级），从解决方案或直接构建 vcxproj 均一致
 
 ## 项目结构
 
 ```
-wartool/
+War3Camera/
 ├── src/                    # 源代码
 │   ├── dllmain.cpp         # DLL 入口：附加时加载插件、分离时卸载
 │   ├── helper.cpp/hpp      # 插件管理器（统一启停）+ 游戏启动配置（Allow Local Files 等注册表写入）
@@ -56,7 +56,7 @@ wartool/
 │   └── Detours/            # Microsoft Detours
 ├── output/                 # 编译输出（含成品 wartool.m3d）
 ├── build/                  # 编译中间产物（临时，可删除）
-└── wartool.sln             # 解决方案文件
+└── War3Camera.sln             # 解决方案文件
 ```
 
 ## 键位汇总
