@@ -1,0 +1,31 @@
+name: Build War3Camera
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  build:
+    runs-on: windows-2022 # 预装 VS2022 与 Windows SDK
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build with MSBuild (Release | Win32)
+        # 根据项目 README，使用 v145 工具集，平台为 Win32
+        run: msbuild wartool.sln /p:Configuration=Release /p:Platform=Win32
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: War3Camera
+          # 成品位于 output 目录下
+          path: output/War3Camera.m3d
+          if-no-files-found: error
