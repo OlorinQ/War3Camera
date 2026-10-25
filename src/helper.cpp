@@ -1,24 +1,6 @@
 #include "helper.hpp"
 #include <windows.h>
 
-// 游戏启动配置键：注册表根键（War3 视频/启动选项均在此）
-#define WAR3_REG_KEY "Software\\Blizzard Entertainment\\Warcraft III"
-
-// 写入 “Allow Local Files”=1：允许游戏加载本地自定义文件（mod），
-// 配合 -loadfromarchive 参数即可启用地图/资源 mod
-static void EnableLocalFiles()
-{
-	HKEY hKey;
-	if (RegCreateKeyExA(HKEY_CURRENT_USER, WAR3_REG_KEY, 0, NULL, 0,
-		KEY_SET_VALUE, NULL, &hKey, NULL) != ERROR_SUCCESS)
-		return;
-
-	DWORD value = 1;
-	RegSetValueExA(hKey, "Allow Local Files", 0, REG_DWORD,
-		reinterpret_cast<const BYTE*>(&value), sizeof(value));
-	RegCloseKey(hKey);
-}
-
 Helper::Helper()
 	: m_plugins{
 		new CameraPlugin(),     // 视距调整
@@ -42,9 +24,6 @@ void Helper::LoadPlugins()
 
 	if (!game->GetGameDllBase())
 		return;
-
-	// 启用本地文件加载（Allow Local Files），方便启用 mod
-	EnableLocalFiles();
 
 	for (auto* p : m_plugins)
 		p->Start();
