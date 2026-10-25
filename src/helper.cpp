@@ -21,11 +21,6 @@ static void EnableLocalFiles()
 
 Helper::Helper()
 	: m_plugins{
-		new UnlockFPS(),        // 帧率解锁
-		new ShowFPS(),          // FPS 显示
-		new WindowFixer(),      // 字体重叠修复（END 键）
-		new BorderlessWindow(), // 无边框全屏
-		new NoWinKey(),         // 禁用 Win 键
 		new CameraPlugin(),     // 视距调整
 	}
 {
