@@ -5,27 +5,34 @@ on:
     branches: [ master, main ]
   pull_request:
     branches: [ master, main ]
-  workflow_dispatch: # 允许手动触发
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: windows-2022 # 预装 VS2022 与 Windows SDK
+    runs-on: windows-2022
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Add MSBuild to PATH
-        uses: microsoft/setup-msbuild@v2
+      - name: Install VS 2026 Build Tools (v145)
+        shell: pwsh
+        run: |
+          Write-Host "Installing VS 2026 Build Tools..."
+          choco install visualstudio2026buildtools `
+            --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --includeRecommended --quiet" `
+            -y --ignore-package-exit-codes=3010
+          Write-Host "VS 2026 Build Tools installation completed"
 
       - name: Build with MSBuild (Release | Win32)
-        # 根据项目 README，使用 v145 工具集，平台为 Win32
-        run: msbuild War3Camera.sln /p:Configuration=Release /p:Platform=Win32
+        shell: cmd
+        run: |
+          call "C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\Common7\Tools\VsDevCmd.bat"
+          msbuild War3Camera.sln /p:Configuration=Release /p:Platform=Win32
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: War3Camera
-          # 成品位于 output 目录下
-          path: output/War3Camera.m3d
+          path: output/*.m3d
           if-no-files-found: error
