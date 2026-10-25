@@ -17,7 +17,7 @@
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>17.0</VCProjectVersion>
 		<ProjectGuid>{2A9E3C51-4B7D-4C8F-9D2E-1F6A8B4C5D6E}</ProjectGuid>
-		<RootNamespace>wartool</RootNamespace>
+		<RootNamespace>War3Camera</RootNamespace>
 		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -61,19 +61,19 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
 		<OutDir>$(ProjectDir)..\output\</OutDir>
 		<IntDir>$(ProjectDir)..\build\$(ProjectName)\</IntDir>
-		<TargetName>wartool</TargetName>
+		<TargetName>War3Camera</TargetName>
 		<TargetExt>.m3d</TargetExt>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
 		<OutDir>$(ProjectDir)..\output\</OutDir>
 		<IntDir>$(ProjectDir)..\build\$(ProjectName)\</IntDir>
-		<TargetName>wartool</TargetName>
+		<TargetName>War3Camera</TargetName>
 		<TargetExt>.m3d</TargetExt>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
 		<OutDir>$(ProjectDir)..\output\</OutDir>
 		<IntDir>$(ProjectDir)..\build\$(ProjectName)\</IntDir>
-		<TargetName>wartool</TargetName>
+		<TargetName>War3Camera</TargetName>
 		<TargetExt>.m3d</TargetExt>
 	</PropertyGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
