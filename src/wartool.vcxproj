@@ -154,7 +154,6 @@
 		<ClInclude Include="game\version.hpp" />
 		<ClInclude Include="plugin\plugin.hpp" />
 		<ClInclude Include="plugin\camera.hpp" />
-<>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 	<ImportGroup Label="ExtensionTargets">
